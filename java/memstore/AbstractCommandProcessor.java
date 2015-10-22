@@ -7,15 +7,16 @@ import java.util.Map;
  *
  * @author vlevine
  */
-public abstract class AbstractCommandProcessor implements CommandProcessor {
+public abstract class AbstractCommandProcessor 
+implements CommandProcessor {
 	/**
 	 *
 	 *
-	 * @param args .
+	 * @param args
+	 *            .
 	 *
 	 * @return .
 	 */
-	@Override
 	public String process(String[] args) {
 		Object[] objects = new Object[args.length];
 
@@ -34,12 +35,21 @@ public abstract class AbstractCommandProcessor implements CommandProcessor {
 
 	protected String findLatestToTime(Integer time, Map<Integer, String> items) {
 		for (Map.Entry<Integer, String> entry : items.entrySet()) {
-			if(entry.getKey() <= time) {
+			if (entry.getKey() <= time) {
 				return entry.getValue();
 			}
 		}
-		
+
 		return null;
+	}
+
+	protected Map<Integer, String> findItems(Integer id,
+			Map<Integer, Map<Integer, String>> store) {
+		Map<Integer, String> items = store.get(id);
+		if (items == null) {
+			throw new IllegalArgumentException("No history exists for identifier '" + id + "'");
+		}
+		return items;
 	}
 
 	/**

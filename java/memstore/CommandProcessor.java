@@ -1,5 +1,5 @@
 package memstore;
 
 public interface CommandProcessor {
-String process(String[] args);
+	String process(String[] args);
 }
